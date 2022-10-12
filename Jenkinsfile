@@ -1,6 +1,6 @@
 #!groovy script
 node {
-
+def mailaddress = 'yash.d.rathod@gmail.com,manju.pothalappa@ecosmob.com'
 //def webPath = '/home/docker/insinfinity'
 //def dockerRegistry='dockerregistry.ecosmob.net:5000'
 
@@ -22,7 +22,9 @@ stage('SonarQube analysis') {
                      stash includes: ".scannerwork/report-task.txt", name: 'sonar'
                     }
           }
-
+	stage('send email notification') {
+        emailext body: "Hello, \n Your Jenkins build for ${JOB_NAME} is ${currentBuild.currentResult}.\n You can verify your application by accessing URL set in environment file.", subject: "[Jenkins] Build status for ${JOB_NAME} ", to: "${mailaddress}"
+	}
 }
 def Properties getProperties(filename) {
 def properties = new Properties()
