@@ -8,8 +8,8 @@ stage ('Checkout'){
 checkout scm
 }
 
-if (env.BRANCH_NAME == 'master')
-{
+//if (env.BRANCH_NAME == 'master')
+
  
 stage('SonarQube analysis') {
                     // requires SonarQube Scanner 2.8+
@@ -22,7 +22,7 @@ stage('SonarQube analysis') {
                      stash includes: ".scannerwork/report-task.txt", name: 'sonar'
                     }
           }
-}
+
 }
 def Properties getProperties(filename) {
 def properties = new Properties()
